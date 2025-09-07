@@ -14,7 +14,7 @@ export default function RightSideBar() {
   };
   return (
     <>
-      <div className="sticky top-0 bg-white py-2">
+      <div className="sticky top-0 bg-white py-2 ">
         <form onSubmit={handleSubmit}>
           <input
             type="text"
@@ -24,7 +24,7 @@ export default function RightSideBar() {
             className="bg-gray-100 border border-gray-200 rounded-3xl text-sm w-full px-4 "
           ></input>
         </form>
-        <News/>
+        <News />
       </div>
     </>
   );
