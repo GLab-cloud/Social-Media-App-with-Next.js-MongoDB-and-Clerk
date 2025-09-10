@@ -1,4 +1,4 @@
-import User from "../models/user.model";
+import User from "../mongodb/models/user.model";
 import { connect } from "mongoose";
 export const createOrUpdateUser = async (
   id,
@@ -26,5 +26,13 @@ export const createOrUpdateUser = async (
     return user;
   } catch (error) {
     console.log("Error creating or update user", error);
+  }
+};
+export const deleteUser = async (id) => {
+  try {
+    await connect();
+    await User.findOneAndDelete({ clerkId: id });
+  } catch (error) {
+    console.log("Error deleting user", error);
   }
 };
