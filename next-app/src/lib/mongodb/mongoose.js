@@ -7,13 +7,14 @@ export const connect = async () => {
     return;
   }
   try {
-    const MONGODB_URI = process.env.MONGODB_URI;
-    await mongoose.connect(MONGODB_URI, {
+    const MONGODB = process.env.MONGODB_URI;
+    //console.log(MONGODB_URI);
+    await mongoose.connect(MONGODB, {
       dbName: "SocialMediaApp",
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    console.log("Connected to MongoDB");
+    console.log("Connected to MongoDB", MONGODB);
     initialized = true;
   } catch (error) {
     console.log("Error connecting to MongoDb", error);
