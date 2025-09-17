@@ -21,7 +21,7 @@ export default function RightSideBar() {
             placeholder="Search"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            className="bg-gray-100 border border-gray-200 rounded-3xl text-sm w-full px-4 "
+            className="bg-gray-100 border border-gray-200 rounded-3xl text-sm px-4 "
           ></input>
         </form>
         <News />
