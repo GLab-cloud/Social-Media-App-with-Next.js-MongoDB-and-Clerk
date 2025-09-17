@@ -37,8 +37,8 @@ export default function RootLayout({ children }) {
               <div className="sm:inline border-r h-screen sticky top-0 sm:w-[100px]">
                 <LeftSideBar />
               </div>
-              <div className="w-2xl flex-1">{children}</div>
-              <div className="sm:w-full lg:flex-col p-3 h-screen border-l">
+              <div className="w-4xl flex-1 max-w-6xl">{children}</div>
+              <div className="p-3 border-l ">
                 <RightSideBar />
               </div>
             </div>
