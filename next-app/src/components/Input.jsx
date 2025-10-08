@@ -21,6 +21,7 @@ export default function Input() {
   useEffect(() => {
     if (selectedFile) {
       uploadImageToStorage();
+    } else {
     }
   }, [selectedFile]);
   const uploadImageToStorage = async () => {};
