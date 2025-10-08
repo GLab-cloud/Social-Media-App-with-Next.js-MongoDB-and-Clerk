@@ -23,7 +23,7 @@ export default function Input() {
     }
   }, [selectedFile]);
   const uploadImageToStorage = async () => {};
-  if (!isLoaded || !isSignedIn) return null;
+  if (!isLoaded || !isSignedIn) return null; //useEffect same order when render this component
 
   return (
     <div className="flex border-b border-gray-200 p-3 space-x-3 w-full">
