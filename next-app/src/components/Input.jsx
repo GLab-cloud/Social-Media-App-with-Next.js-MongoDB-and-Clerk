@@ -17,14 +17,14 @@ export default function Input() {
     }
   };
 
-  if (!isLoaded || !isSignedIn) return null;
   useEffect(() => {
     if (selectedFile) {
       uploadImageToStorage();
-    } else {
     }
   }, [selectedFile]);
   const uploadImageToStorage = async () => {};
+  if (!isLoaded || !isSignedIn) return null;
+
   return (
     <div className="flex border-b border-gray-200 p-3 space-x-3 w-full">
       <img
