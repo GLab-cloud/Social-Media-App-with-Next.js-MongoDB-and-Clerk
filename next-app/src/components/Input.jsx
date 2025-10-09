@@ -16,6 +16,9 @@ export default function Input() {
   const [imageFileUrl, setImageFileUrl] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [imageFileUploading, setImageFileUploading] = useState(false);
+  const [text, setText] = useState("");
+  const [postLoading, setPostLoading] = useState(false);
+
   const addImageToPost = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -71,6 +74,8 @@ export default function Input() {
           className="w-full border-none outline-none tracking-wide min-h-[50px] text-gray-700 "
           placeholder="Whats happening"
           rows="2"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
         ></textarea>
         {selectedFile && (
           <img
@@ -98,7 +103,7 @@ export default function Input() {
             onChange={addImageToPost}
           />
           <button
-            disabled
+            disabled={text.trim() === "" || postLoading || imageFileUploading}
             className="bg-blue-400 text-white px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95 disabled:opacity-50"
           >
             Post
