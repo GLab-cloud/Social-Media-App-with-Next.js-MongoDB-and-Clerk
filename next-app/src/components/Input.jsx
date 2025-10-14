@@ -10,6 +10,7 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
+
 export default function Input() {
   const { user, isSignedIn, isLoaded, isLoading } = useUser();
   const imagePickRef = useRef(null);
@@ -59,6 +60,26 @@ export default function Input() {
       }
     );
   };
+  const handleSubmit = async () => {
+    setPostLoading(true);
+    const response = await fetch("/api/post/create", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userMongoId: user.publicMetadata.userMongoId,
+        name: user.fullName,
+        username: user.userName,
+        text,
+        profileImg: user.imageUrl,
+        image: imageFileUrl,
+      }),
+    });
+    setPostLoading(false);
+    setText("");
+    setSelectedFile(null);
+    setImageFileUrl(null);
+    location.reload(); //refresh page from the client-side to see reflection - update content from the server-side
+  };
 
   if (!isLoaded || !isSignedIn) return null; //useEffect same order when render this component
 
@@ -103,6 +124,7 @@ export default function Input() {
             onChange={addImageToPost}
           />
           <button
+            onClick={handleSubmit}
             disabled={text.trim() === "" || postLoading || imageFileUploading}
             className="bg-blue-400 text-white px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95 disabled:opacity-50"
           >
