@@ -64,11 +64,13 @@ export default function Input() {
     setPostLoading(true);
     const response = await fetch("/api/post/create", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         userMongoId: user.publicMetadata.userMongoId,
         name: user.fullName,
-        username: user.userName,
+        username: user.username,
         text,
         profileImg: user.imageUrl,
         image: imageFileUrl,
@@ -78,7 +80,7 @@ export default function Input() {
     setText("");
     setSelectedFile(null);
     setImageFileUrl(null);
-    location.reload(); //refresh page from the client-side to see reflection - update content from the server-side
+    location.reload();
   };
 
   if (!isLoaded || !isSignedIn) return null; //useEffect same order when render this component
