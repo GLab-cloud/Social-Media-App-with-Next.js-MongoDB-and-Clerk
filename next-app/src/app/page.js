@@ -6,7 +6,7 @@ export default async function Home() {
   try {
     const result = await fetch(process.env.URL + "/api/post/all", {
       method: "POST",
-      cache: "no-store",
+      // cache: "no-store",
     }); // fetch by server side - process.env.URL+...
     data = await result.json();
     console.log("posts data: ", data);
