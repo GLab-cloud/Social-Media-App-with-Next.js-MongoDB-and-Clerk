@@ -1,7 +1,19 @@
 import Input from "@/components/Input";
 import Image from "next/image";
+import Feed from "@/components/Feed";
 
-export default function Home() {
+export default async function Home() {
+  let data = null;
+  try {
+    const result = await fetch(process.env.URL + "/api/post/all", {
+      method: "POST",
+      cache: "no-store",
+    }); // fetch by server side - process.env.URL+...
+    data = await result.json();
+    console.log("posts data: ", data);
+  } catch (error) {
+    console.log("Error fetching posts", error);
+  }
   return (
     <div className="h-screen max-w-xl mx-auto w-full">
       {" "}
@@ -12,6 +24,7 @@ export default function Home() {
         </h2>
       </div>
       <Input className="w-full" />
+      <Feed data={data} />
     </div>
   );
 }
