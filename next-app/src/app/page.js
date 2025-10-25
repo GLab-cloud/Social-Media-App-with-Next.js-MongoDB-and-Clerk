@@ -1,5 +1,4 @@
 import Input from "@/components/Input";
-import Image from "next/image";
 import Feed from "@/components/Feed";
 
 export default async function Home() {
