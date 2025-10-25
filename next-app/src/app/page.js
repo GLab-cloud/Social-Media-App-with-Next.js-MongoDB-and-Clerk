@@ -3,15 +3,16 @@ import Feed from "@/components/Feed";
 
 export default async function Home() {
   let data = null;
-  
-    const result = await fetch(process.env.URL + "/api/post/all", {
-      method: "POST",
-      cache: "no-store",
-    }); // fetch by server side - process.env.URL+...
-    data = await result.json();
-    console.log("posts data: ", data);
-   if (!data) {
+
+  const result = await fetch(process.env.URL + "/api/post/all", {
+    method: "POST",
+    cache: "no-store",
+  }); // fetch by server side - process.env.URL+...
+  data = await result.json();
+  console.log("posts data: ", data);
+  if (!data) {
     console.log("Error fetching posts");
+  }
 
   return (
     <div className="h-screen max-w-xl mx-auto w-full">
