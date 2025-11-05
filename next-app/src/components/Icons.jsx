@@ -9,7 +9,7 @@ import {
   HiOutlineTrash,
   HiHeart,
 } from "react-icons/hi";
-import { modalAtom } from "@/atom/modalAtom";
+import { modalAtom, postIdAtom } from "@/atom/modalAtom";
 import { useRecoilState } from "recoil";
 
 export default function Icons({ post }) {
@@ -18,6 +18,7 @@ export default function Icons({ post }) {
   const { user } = useUser();
   const router = useRouter();
   const [open, setOpen] = useRecoilState(modalAtom);
+  const [postId, setPostId] = useRecoilState(postIdAtom);
   const likePost = () => {
     if (!user) {
       router.push("/sign-in");
@@ -66,7 +67,14 @@ export default function Icons({ post }) {
   return (
     <div className="flex justify-start gap-5 p-2 text-gray-500">
       <HiOutlineChat
-        onClick={() => setOpen(!open)}
+        onClick={() => {
+          if (!user) {
+            router.push("/sign-in");
+          } else {
+            setOpen(!open);
+            setPostId(post._id);
+          }
+        }}
         className="h-8 w-8 cursor-pointer rounded-full  transition duration-500 ease-in-out p-2 hover:text-sky-500 hover:bg-sky-100"
       />
       <div className="flex items-center">
