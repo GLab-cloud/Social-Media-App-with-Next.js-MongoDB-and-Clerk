@@ -66,17 +66,22 @@ export default function Icons({ post }) {
   };
   return (
     <div className="flex justify-start gap-5 p-2 text-gray-500">
-      <HiOutlineChat
-        onClick={() => {
-          if (!user) {
-            router.push("/sign-in");
-          } else {
-            setOpen(!open);
-            setPostId(post._id);
-          }
-        }}
-        className="h-8 w-8 cursor-pointer rounded-full  transition duration-500 ease-in-out p-2 hover:text-sky-500 hover:bg-sky-100"
-      />
+      <div className="flex items-center">
+        <HiOutlineChat
+          onClick={() => {
+            if (!user) {
+              router.push("/sign-in");
+            } else {
+              setOpen(!open);
+              setPostId(post._id);
+            }
+          }}
+          className="h-8 w-8 cursor-pointer rounded-full  transition duration-500 ease-in-out p-2 hover:text-sky-500 hover:bg-sky-100"
+        />{" "}
+        {post.comments.length > 0 && (
+          <span className="text-xs">{post.comments.length}</span>
+        )}
+      </div>
       <div className="flex items-center">
         {isLiked ? (
           <HiHeart

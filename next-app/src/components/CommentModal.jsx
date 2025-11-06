@@ -3,8 +3,11 @@ import { useRecoilState } from "recoil";
 import { modalAtom, postIdAtom } from "@/atom/modalAtom";
 import Modal from "react-modal";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+
 import { useUser } from "@clerk/nextjs";
 import { HiX } from "react-icons/hi";
+import { comment } from "postcss";
 export default function CommentModal() {
   const [open, setOpen] = useRecoilState(modalAtom);
   const [postId, setPostId] = useRecoilState(postIdAtom);
@@ -12,6 +15,7 @@ export default function CommentModal() {
   const [postLoading, setPostLoading] = useState(false);
   const [input, setInput] = useState("");
   const { user } = useUser();
+  const router = useRouter();
   useEffect(() => {
     const fetchPost = async () => {
       if (postId !== "") {
@@ -19,7 +23,7 @@ export default function CommentModal() {
         setInput("");
         const response = await fetch("/api/post/get/", {
           method: "POST",
-          headers: { "Content-Type": "applicarion/json" },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ postId }),
         });
         if (response.ok) {
@@ -34,7 +38,32 @@ export default function CommentModal() {
     };
     fetchPost();
   }, [postId]);
-  const sendComment = () => {};
+  const sendComment = async () => {
+    if (!user) {
+      router.push("/sign-in");
+    }
+    try {
+      const res = await fetch("/api/post/comment", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          postId,
+          comment: input,
+          user: user.publicMetadata.userMongoId,
+          name: user.name,
+          username: user.username,
+          profileImg: user.imageUrl,
+        }),
+      });
+      if (res.status === 200) {
+        setInput("");
+        setOpen(false);
+        router.push(`/posts/${postId}`);
+      }
+    } catch (error) {
+      console.log("Error sending comment", error);
+    }
+  };
   return (
     <div>
       {open && (
