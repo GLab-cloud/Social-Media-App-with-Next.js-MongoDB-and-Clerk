@@ -12,12 +12,15 @@ export default async function UserPage({ params }) {
       cache: "no-store",
     });
     data = await result.json();
+    console.log("mongodb user", data);
+
     const userPosts = await fetch(process.env.URL + "/api/post/user/get", {
       method: "POST",
       body: JSON.stringify({ userId: data._id }),
       cache: "no-store",
     });
     data.posts = await userPosts.json();
+    console.log(data);
   } catch (error) {
     console.error("Failed to fetch post", error);
   }
@@ -38,7 +41,7 @@ export default async function UserPage({ params }) {
               <img
                 src={data.avatar}
                 alt="Profile"
-                className="h-16 w-16 rounded-full"
+                className="h-11 w-11 rounded-full mr-4"
               />
               <div>
                 <h2 className="text-xl font-bold">
