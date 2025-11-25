@@ -21,7 +21,7 @@ export default function CommentModal() {
       if (postId !== "") {
         setPostLoading(true);
         setInput("");
-        const response = await fetch("/api/post/get/", {
+        const response = await fetch("/api/post/get", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ postId }),
